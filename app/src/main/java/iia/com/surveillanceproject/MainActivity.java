@@ -15,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -25,18 +24,27 @@ import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText edLogin;
+    EditText edPassword;
+    String login = "";
+    String password = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText edLogin = (EditText) this.findViewById(R.id.login);
-        EditText edPassword = (EditText) this.findViewById(R.id.password);
+        edLogin = (EditText) this.findViewById(R.id.login);
+        edPassword = (EditText) this.findViewById(R.id.password);
         Button btCnx = (Button) this.findViewById(R.id.Cnx);
 
         btCnx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                login = edLogin.getText().toString();
+                password = edPassword.getText().toString();
+                new HttpAsyncTask().execute("http://192.168.100.25/index.php");
 
             }
         });
@@ -44,17 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static String sendData(String url, EditText login, EditText password) throws IOException {
+    public static String sendData(String url, String login, String password) throws IOException {
         InputStream inputStream = null;
         String result = "";
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
-        String json ="";
+        String json = "";
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.accumulate("login",login.getText());
-            jsonObject.accumulate("password",password.getText());
+            jsonObject.accumulate("login", login);
+            jsonObject.accumulate("password", password);
             json = jsonObject.toString();
             StringEntity se = new StringEntity(json);
             httpPost.setEntity(se);
@@ -78,10 +86,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
 
-          //  return sendData(urls[0],"toto","mypassword");
+            String url = "";
 
+            try {
+                return sendData(urls[0], login, password);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
 
         }
+
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
@@ -90,11 +105,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         String result = "";
-        while((line = bufferedReader.readLine()) != null)
+        while ((line = bufferedReader.readLine()) != null)
             result += line;
 
         inputStream.close();
