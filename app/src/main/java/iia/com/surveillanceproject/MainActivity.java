@@ -52,44 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static String sendData(String url, String login, String password) throws IOException {
-        InputStream inputStream = null;
-        String result = "";
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(url);
-        String json = "";
-        JSONObject jsonObject = new JSONObject();
 
-        try {
-            jsonObject.accumulate("login", login);
-            jsonObject.accumulate("password", password);
-            json = jsonObject.toString();
-            StringEntity se = new StringEntity(json);
-            httpPost.setEntity(se);
-            HttpResponse response = client.execute(httpPost);
-            inputStream = response.getEntity().getContent();
-
-            if (inputStream != null) {
-                result = convertInputStreamToString(inputStream);
-            } else {
-                result = "InputStream not convert to string";
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
-            String url = "";
-
             try {
-                return sendData(urls[0], login, password);
+                return Login.sendData(urls[0], login, password);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,15 +75,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while ((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        return result;
-
-    }
 }
