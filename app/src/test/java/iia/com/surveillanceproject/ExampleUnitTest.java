@@ -2,6 +2,8 @@ package iia.com.surveillanceproject;
 
 import org.junit.Test;
 
+import iia.com.surveillanceproject.com.utils.Test;
+
 import static org.junit.Assert.*;
 
 /**

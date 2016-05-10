@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "iia.com.surveillanceproject"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -24,4 +24,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    compile files('libs/gson-2.2.4.jar')
+    compile 'commons-io:commons-io:2.4'
 }
