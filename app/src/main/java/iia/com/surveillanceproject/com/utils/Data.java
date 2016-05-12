@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.utils;
+package iia.com.surveillanceproject.com.Utils;
 
 import android.util.Base64;
 
@@ -21,6 +21,20 @@ public class Data {
         // build json
         jsonObject.accumulate("login", login);
         jsonObject.accumulate("password", password);
+        json = jsonObject.toString();
+        byte[] jsonbyte = json.getBytes("UTF-8");
+
+        return json;
+    }
+
+    public static String createJson(String login,String password,String token) throws JSONException, UnsupportedEncodingException {
+
+        String json = "";
+        JSONObject jsonObject = new JSONObject();
+        // build json
+        jsonObject.accumulate("login", login);
+        jsonObject.accumulate("password", password);
+        jsonObject.accumulate("token", token);
         json = jsonObject.toString();
         byte[] jsonbyte = json.getBytes("UTF-8");
 

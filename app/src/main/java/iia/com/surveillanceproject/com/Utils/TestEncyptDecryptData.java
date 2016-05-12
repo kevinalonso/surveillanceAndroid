@@ -1,17 +1,17 @@
-package iia.com.surveillanceproject.com.utils;
+package iia.com.surveillanceproject.com.Utils;
 
 import javax.crypto.spec.IvParameterSpec;
 
-import iia.com.surveillanceproject.com.asymetric.Iv;
-import iia.com.surveillanceproject.com.asymetric.SecretKey;
-import iia.com.surveillanceproject.com.asymetric.Descrypt;
-import iia.com.surveillanceproject.com.asymetric.Encrypt;
+import iia.com.surveillanceproject.com.Asymetric.Iv;
+import iia.com.surveillanceproject.com.Asymetric.SecretKey;
+import iia.com.surveillanceproject.com.Asymetric.Descrypt;
+import iia.com.surveillanceproject.com.Asymetric.Encrypt;
 
 
 /**
  * Created by Thom' on 01/05/2016.
  */
-public class Test {
+public class TestEncyptDecryptData {
 
 
     public static String sendData(String login, String password) throws Exception {
@@ -30,9 +30,7 @@ public class Test {
          * Create iv
          */
 
-
         IvParameterSpec ivParameterSpec = Iv.GenerateIv();
-       // byte[] ivbyte = ivParameterSpec.getIV();
 
 
         /**
@@ -44,14 +42,6 @@ public class Test {
          * Encrypt Kc
          */
         String kcEncrypted = SecretKey.encryptKc(kc);
-
-       // byte[] kcEncryptedByte = Base64.decode(kcEncrypted, Base64.DEFAULT);
-        /**
-         * Concat JsonEncrypted + KcEncrypted
-         */
-
-
-        //String message = Concat.ConcatEncryptedStrings(jsonEncrypted, kcEncrypted);
 
         /**
          * Concat iv + kcEncrypted + jsonEncrypted
@@ -72,13 +62,7 @@ public class Test {
          */
 
         String KcEncryptedFromMessageV2 = SecretKey.ExtractKcv2(messageV2, ivParameterSpecExtract);
-       // byte[] KcEncryptedFromMessageV2Byte = Base64.decode(KcEncryptedFromMessageV2, Base64.DEFAULT);
 
-        /**
-         * Extract SecretKey From message
-         */
-
-       // String KcEncryptedFromMessage = SecretKey.ExtractKc(message);
 
         /**
          * Extract json from message
@@ -92,22 +76,15 @@ public class Test {
          * Decrypt Kc
          */
 
-       // String KcDecrypted = SecretKey.decryptKc(KcEncryptedFromMessage);
-       // byte[] KcDecryptedByte = Base64.decode(KcDecrypted, Base64.DEFAULT);
         String KcDecrypted2 = SecretKey.decryptKc(KcEncryptedFromMessageV2);
-        //byte[] KcDecryptedByte2 = Base64.decode(KcDecrypted2, Base64.DEFAULT);
 
         /**
          * Decrypt message
          */
 
 
-       // String messageDecrypted = Descrypt.decryptMessage(jsonEncrypted, KcDecrypted, ivParameterSpec);
-
         String messageDecryptedV2 = Descrypt.decryptMessage(jsonEncryptedV2, KcDecrypted2, ivParameterSpecExtract);
 
-
-        //return message;
         return messageDecryptedV2;
     }
 

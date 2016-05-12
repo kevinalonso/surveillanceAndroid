@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.asymetric;
+package iia.com.surveillanceproject.com.Asymetric;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

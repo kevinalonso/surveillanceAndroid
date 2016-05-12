@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.views;
+package iia.com.surveillanceproject.com.Views;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,21 +19,23 @@ import javax.crypto.spec.IvParameterSpec;
 
 import cz.msebera.android.httpclient.Header;
 import iia.com.surveillanceproject.R;
-import iia.com.surveillanceproject.com.asymetric.Descrypt;
-import iia.com.surveillanceproject.com.asymetric.Encrypt;
-import iia.com.surveillanceproject.com.asymetric.Iv;
-import iia.com.surveillanceproject.com.asymetric.SecretKey;
-import iia.com.surveillanceproject.com.entity.User;
-import iia.com.surveillanceproject.com.utils.Concat;
-import iia.com.surveillanceproject.com.utils.Data;
-import iia.com.surveillanceproject.com.utils.Test;
-import iia.com.surveillanceproject.com.asymetric.Hash;
-import iia.com.surveillanceproject.com.webservice.UserWSAdapter;
+import iia.com.surveillanceproject.com.Asymetric.Descrypt;
+import iia.com.surveillanceproject.com.Asymetric.Encrypt;
+import iia.com.surveillanceproject.com.Asymetric.Iv;
+import iia.com.surveillanceproject.com.Asymetric.SecretKey;
+import iia.com.surveillanceproject.com.Entity.User;
+import iia.com.surveillanceproject.com.Utils.Concat;
+import iia.com.surveillanceproject.com.Utils.Data;
+import iia.com.surveillanceproject.com.Utils.TestEncyptDecryptData;
+import iia.com.surveillanceproject.com.Asymetric.Hash;
+import iia.com.surveillanceproject.com.Webservice.UserWSAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText edLogin;
     EditText edPassword;
+    Button btCnx;
+    Button btSurveillance;
     String login = "";
     String password = "";
 
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
         edLogin = (EditText) this.findViewById(R.id.login);
         edPassword = (EditText) this.findViewById(R.id.password);
-        Button btCnx = (Button) this.findViewById(R.id.Cnx);
+        btCnx = (Button) this.findViewById(R.id.Cnx);
+        btSurveillance = (Button) this.findViewById(R.id.btSurveillance);
+
 
         btCnx.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 String messageEncrypted = null;
 
                 try {
-                    jsondecrypted = Test.sendData(login, password);
+                    /**
+                     * Encrypt Decrypt data TEST
+                     */
+                    jsondecrypted = TestEncyptDecryptData.sendData(login, password);
                     Toast.makeText(MainActivity.this, jsondecrypted, Toast.LENGTH_SHORT).show();
 
                     /**
@@ -70,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
                     String json = Data.createJson(login, password);
                     byte[] secretKey = SecretKey.GenerateKc();
                     IvParameterSpec iv = Iv.GenerateIv();
-
                     String jsonencrypted = Encrypt.encryptMessage(json, secretKey, iv);
-
                     String secretKeyEncrypted = SecretKey.encryptKc(secretKey);
+
                     messageEncrypted = Concat.ConcatEncryptedStrings(jsonencrypted, secretKeyEncrypted, iv);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -86,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     UserWSAdapter.post(MainActivity.this, messageEncrypted, new TextHttpResponseHandler() {
+
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                             Toast.makeText(MainActivity.this, responseString, Toast.LENGTH_SHORT).show();
@@ -101,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
                              * Extract iv from response
                              */
 
-
-                            IvParameterSpec ivParameterSpecExtract = Iv.extractIv(responseString);
+                            IvParameterSpec ivParameterSpecExtract= null;
 
                             /**
                              * Extract SecretKey from response
@@ -166,6 +173,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        /**
+         * Click on surveillance
+         */
+        btSurveillance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User user = null;
+                Intent i = new Intent(MainActivity.this, Surveillance.class);
+                i.putExtra(User.SERIAL, user);
+
+                startActivity(i);
+            }
+        });
+
+
+
     }
 
 }

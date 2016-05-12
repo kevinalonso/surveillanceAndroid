@@ -2,12 +2,10 @@ package iia.com.surveillanceproject;
 
 import org.junit.Test;
 
-import iia.com.surveillanceproject.com.utils.Test;
-
 import static org.junit.Assert.*;
 
 /**
- * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ * To work on unit tests, switch the TestEncyptDecryptData Artifact in the Build Variants view.
  */
 public class ExampleUnitTest {
     @Test

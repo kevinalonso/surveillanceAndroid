@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.webservice;
+package iia.com.surveillanceproject.com.Webservice;
 
 import android.content.Context;
 
@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
-import iia.com.surveillanceproject.com.entity.Fichier;
+import iia.com.surveillanceproject.com.Entity.Fichier;
 
 /**
  * Created by Thom' on 09/05/2016.

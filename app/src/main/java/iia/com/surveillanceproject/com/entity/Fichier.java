@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.entity;
+package iia.com.surveillanceproject.com.Entity;
 
 /**
  * Created by Thom' on 09/05/2016.

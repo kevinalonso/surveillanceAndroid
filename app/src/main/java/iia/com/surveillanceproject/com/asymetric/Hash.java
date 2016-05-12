@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.asymetric;
+package iia.com.surveillanceproject.com.Asymetric;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;

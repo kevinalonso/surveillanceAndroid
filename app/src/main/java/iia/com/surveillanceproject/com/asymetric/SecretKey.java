@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.asymetric;
+package iia.com.surveillanceproject.com.Asymetric;
 
 import android.util.Base64;
 
@@ -9,9 +9,6 @@ import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 
-import iia.com.surveillanceproject.com.asymetric.PrivateKeyReader;
-import iia.com.surveillanceproject.com.asymetric.PublicKeyReader;
-
 /**
  * Created by Thom' on 01/05/2016.
  */
@@ -20,8 +17,8 @@ public class SecretKey {
 
     public static String encryptKc(byte[] kc) {
 
+       // final String PATH_PUBLIC_KEY = "./data/data/iia.com.surveillanceproject/public_key_server.der";
         final String PATH_PUBLIC_KEY = "./data/data/iia.com.surveillanceproject/public_test.der";
-
         PublicKey pubKey = null;
         try {
             pubKey = PublicKeyReader.get(PATH_PUBLIC_KEY);
@@ -39,7 +36,7 @@ public class SecretKey {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Base64.encodeToString(cipherText, Base64.NO_WRAP);
+        return Base64.encodeToString(cipherText, Base64.NO_PADDING); // no wrap en no padding
     }
 
     public static String decryptKc(String kc) {
@@ -58,26 +55,15 @@ public class SecretKey {
 
             // decrypt the text using the private key
             cipher.init(Cipher.DECRYPT_MODE, privKey);
-            dectyptedText = cipher.doFinal(Base64.decode(kc, Base64.DEFAULT));
+            dectyptedText = cipher.doFinal(Base64.decode(kc, Base64.NO_PADDING));
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        return Base64.encodeToString(dectyptedText, Base64.DEFAULT);
+        return Base64.encodeToString(dectyptedText, Base64.NO_PADDING);
     }
 
-    public static String ExtractKc(String message) {
-
-        final byte[] messageBytes = Base64.decode(message, Base64.DEFAULT);
-        final byte[] kc = new byte[16];
-        for (int i = 0; i < kc.length; i++) {
-            kc[i] = messageBytes[i];
-        }
-
-        return Base64.encodeToString(kc, Base64.DEFAULT);
-
-    }
 
     public static String ExtractKcv2(String message,IvParameterSpec ivParameterSpec) {
 

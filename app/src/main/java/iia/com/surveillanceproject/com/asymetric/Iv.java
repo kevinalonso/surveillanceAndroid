@@ -1,4 +1,4 @@
-package iia.com.surveillanceproject.com.asymetric;
+package iia.com.surveillanceproject.com.Asymetric;
 
 import android.util.Base64;
 
@@ -22,7 +22,7 @@ public class Iv {
 
     public static IvParameterSpec extractIv(String message) {
 
-        final byte[] messageBytes = Base64.decode(message, Base64.DEFAULT);
+        final byte[] messageBytes = Base64.decode(message, Base64.NO_PADDING);
 
         // Get 16 first byte[] (= KcEncrypted)
         final byte[] iv = new byte[16];
