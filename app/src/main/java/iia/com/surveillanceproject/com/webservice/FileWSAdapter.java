@@ -28,6 +28,15 @@ public class FileWSAdapter {
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
 
+    /**
+     * Post file to server
+     *
+     * @param filePath        file
+     * @param responseHandler response
+     * @throws JSONException
+     * @throws UnsupportedEncodingException
+     * @throws FileNotFoundException
+     */
     public static void post(String filePath, AsyncHttpResponseHandler responseHandler)
             throws JSONException, UnsupportedEncodingException, FileNotFoundException {
 
@@ -39,6 +48,15 @@ public class FileWSAdapter {
     }
 
 
+    /**
+     * Post token to server
+     *
+     * @param context         context
+     * @param json            json
+     * @param responseHandler response
+     * @throws JSONException
+     * @throws UnsupportedEncodingException
+     */
     public static void postToken(Context context, String json, AsyncHttpResponseHandler responseHandler)
             throws JSONException, UnsupportedEncodingException {
 

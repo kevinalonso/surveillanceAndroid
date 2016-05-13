@@ -17,15 +17,23 @@ import javax.crypto.spec.IvParameterSpec;
 public class Encrypt {
 
 
-    public static String encryptMessage(String text, byte kc[],IvParameterSpec iv) {
+    /**
+     * Encrypt message
+     *
+     * @param text message to encrypt
+     * @param kc   secret key
+     * @param iv   init vector
+     * @return message encrypted
+     */
+    public static String encryptMessage(String text, byte kc[], IvParameterSpec iv) {
 
         try {
 
             final byte[] inputText = text.getBytes("UTF-8");
-            final byte[] cipherText = CipherData.cipherEncryptAES(inputText, kc,iv);
-            String message = Base64.encodeToString(cipherText,Base64.NO_PADDING);
+            final byte[] cipherText = CipherData.cipherEncryptAES(inputText, kc, iv);
+            String message = Base64.encodeToString(cipherText, Base64.NO_PADDING);
 
-            return message ;
+            return message;
 
         } catch (Exception e) {
 
@@ -34,6 +42,12 @@ public class Encrypt {
         return null;
     }
 
+    /**
+     * Encrypt file
+     *
+     * @param fichier file to encrypt
+     * @return encrypted file path
+     */
     public static String encryptFile(File fichier) {
         IvParameterSpec iv = Iv.GenerateIv();
         byte[] secretKey = SecretKey.GenerateKc();

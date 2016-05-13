@@ -10,6 +10,13 @@ import javax.crypto.spec.IvParameterSpec;
 public class Concat {
 
 
+    /**
+     * Concat iv + secretKey encrypted + data
+     * @param jsonEncrypted data encrypted
+     * @param kcEncrypted secretKey encrypted
+     * @param iv init vector
+     * @return message
+     */
     public static String ConcatEncryptedStrings(String jsonEncrypted,String kcEncrypted,IvParameterSpec iv) {
         /**
          * concat lenght = iv.lenght + kc.lenght + message.lenght

@@ -23,6 +23,15 @@ public class UserWSAdapter {
     private static AsyncHttpClient client = new AsyncHttpClient();
 
 
+    /**
+     * Post user login to server
+     *
+     * @param context         context
+     * @param json            json
+     * @param responseHandler response
+     * @throws JSONException
+     * @throws UnsupportedEncodingException
+     */
     public static void post(Context context, String json, AsyncHttpResponseHandler responseHandler)
             throws JSONException, UnsupportedEncodingException {
 
@@ -31,6 +40,13 @@ public class UserWSAdapter {
         client.post(context, URL, entity, "application/x-www-form-urlencoded", responseHandler);
     }
 
+    /**
+     * Convert json to user
+     *
+     * @param json json
+     * @return User
+     * @throws JSONException
+     */
     public static User jsonToUser(JSONObject json) throws JSONException {
 
         User user = new User();

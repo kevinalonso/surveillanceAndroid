@@ -14,6 +14,14 @@ import javax.crypto.spec.IvParameterSpec;
  */
 public class Data {
 
+    /**
+     * Create json
+     * @param login login
+     * @param password password
+     * @return json
+     * @throws JSONException
+     * @throws UnsupportedEncodingException
+     */
     public static String createJson(String login,String password) throws JSONException, UnsupportedEncodingException {
 
         String json = "";
@@ -27,6 +35,15 @@ public class Data {
         return json;
     }
 
+    /**
+     * Create json
+     * @param login login
+     * @param password password
+     * @param token token
+     * @return json
+     * @throws JSONException
+     * @throws UnsupportedEncodingException
+     */
     public static String createJson(String login,String password,String token) throws JSONException, UnsupportedEncodingException {
 
         String json = "";
@@ -42,6 +59,13 @@ public class Data {
     }
 
 
+    /**
+     * Extract json
+     * @param message message
+     * @param ivParameterSpec init vector
+     * @param secretKeyEncrypted secretKey encrypted
+     * @return json extract
+     */
     public static String ExtractJson(String message,IvParameterSpec ivParameterSpec ,String secretKeyEncrypted) {
 
         final byte[] messageBytes = Base64.decode(message, Base64.DEFAULT);

@@ -12,6 +12,12 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class PublicKeyReader {
 
+    /**
+     * Read public key
+     * @param filename public key to read
+     * @return public key
+     * @throws Exception
+     */
     public static PublicKey get(String filename) throws Exception {
         File public_key = new File(filename);
         FileInputStream fis = new FileInputStream(public_key);

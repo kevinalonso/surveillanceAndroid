@@ -15,9 +15,15 @@ import javax.crypto.spec.IvParameterSpec;
 public class SecretKey {
 
 
+    /**
+     * Encrypt SecretKey RSA 2048
+     *
+     * @param kc secretKey
+     * @return secretKey encrypted
+     */
     public static String encryptKc(byte[] kc) {
 
-       // final String PATH_PUBLIC_KEY = "./data/data/iia.com.surveillanceproject/public_key_server.der";
+        // final String PATH_PUBLIC_KEY = "./data/data/iia.com.surveillanceproject/public_key_server.der";
         final String PATH_PUBLIC_KEY = "./data/data/iia.com.surveillanceproject/public_test.der";
         PublicKey pubKey = null;
         try {
@@ -39,6 +45,12 @@ public class SecretKey {
         return Base64.encodeToString(cipherText, Base64.NO_PADDING); // no wrap en no padding
     }
 
+    /**
+     * Decrypt SecretKey RSA 2048
+     *
+     * @param kc SecretKey encrypted
+     * @return secretKey decrypted
+     */
     public static String decryptKc(String kc) {
 
         final String PATH_PRIVATE_KEY = "./data/data/iia.com.surveillanceproject/private_test.der";
@@ -65,10 +77,17 @@ public class SecretKey {
     }
 
 
-    public static String ExtractKcv2(String message,IvParameterSpec ivParameterSpec) {
+    /**
+     * Extract secretKey from message
+     *
+     * @param message         message
+     * @param ivParameterSpec init vector
+     * @return secretKey extract
+     */
+    public static String ExtractKcv2(String message, IvParameterSpec ivParameterSpec) {
 
         // Message Base64 to byte[]
-        final byte[] messageBytes = Base64.decode(message,Base64.DEFAULT);
+        final byte[] messageBytes = Base64.decode(message, Base64.DEFAULT);
         // Get 16 first byte[] (= KcEncrypted)
         int j = 0;
         final byte[] kc = new byte[256];// modif ici 256 a la place de 16

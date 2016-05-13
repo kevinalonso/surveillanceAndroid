@@ -42,14 +42,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * Set view
+         */
         setContentView(R.layout.activity_main);
 
+        /**
+         * Get view items
+         */
         edLogin = (EditText) this.findViewById(R.id.login);
         edPassword = (EditText) this.findViewById(R.id.password);
         btCnx = (Button) this.findViewById(R.id.Cnx);
         btSurveillance = (Button) this.findViewById(R.id.btSurveillance);
 
 
+        /**
+         * Click on connexion
+         */
         btCnx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 /**
-                 * Send identifiants to server
+                 * Send json encrypted to server
                  */
 
                 try {

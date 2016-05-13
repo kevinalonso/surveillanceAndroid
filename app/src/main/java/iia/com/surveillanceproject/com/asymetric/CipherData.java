@@ -19,46 +19,66 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by Thom' on 20/01/2016.
  */
 public class CipherData {
-    public static final byte[] cipherEncrypt(final byte[] input,final PublicKey publickey) {
+    /**
+     * Cipher data RSA 2048
+     *
+     * @param input     data to encrypt
+     * @param publickey Public key
+     * @return data encrypted
+     */
+    public static final byte[] cipherEncrypt(final byte[] input, final PublicKey publickey) {
         byte[] cipherText = null;
         try {
             final SecureRandom random = new SecureRandom();
-            //Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-           Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.ENCRYPT_MODE,publickey,random);
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.ENCRYPT_MODE, publickey, random);
 
             //Encrypt
             cipherText = cipher.doFinal(input);
             return cipherText;
 
-        }catch(Exception e) {
+        } catch (Exception e) {
 
         }
         return cipherText;
     }
 
-    public static final byte[] cipherEncryptAES(final byte[] input,byte[] kc,IvParameterSpec iv) {
+    /**
+     * Cipher encrypt data AES 128
+     *
+     * @param input data to encrypt
+     * @param kc    SecretKey
+     * @param iv    init vector
+     * @return data encrypted
+     */
+    public static final byte[] cipherEncryptAES(final byte[] input, byte[] kc, IvParameterSpec iv) {
         byte[] cipherText = null;
         try {
 
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKey aesKey = new SecretKeySpec(kc, "AES");
-            cipher.init(Cipher.ENCRYPT_MODE,aesKey,iv);
+            cipher.init(Cipher.ENCRYPT_MODE, aesKey, iv);
             //Encrypt
             cipherText = cipher.doFinal(input);
             return cipherText;
 
-        }catch(Exception e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
         return cipherText;
     }
 
-    public static  final byte[] cipherDescrypt(final byte[] input,final PrivateKey privateKey) {
+    /**
+     * Cipher decrypt data RSA 2048
+     *
+     * @param input      data to decrypt
+     * @param privateKey private key
+     * @return data decrypted
+     */
+    public static final byte[] cipherDescrypt(final byte[] input, final PrivateKey privateKey) {
         byte[] cipherText = null;
-        try
-        {
+        try {
             final SecureRandom random = new SecureRandom();
 
             //Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -66,28 +86,35 @@ public class CipherData {
             cipher.init(Cipher.DECRYPT_MODE, privateKey, random);
 
             // Decrypt !
-             cipherText = cipher.doFinal(input);
+            cipherText = cipher.doFinal(input);
 
             return cipherText;
-        }
-        catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e)
-        {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public static final byte[] cipherDecryptAES(final byte[] input,byte[] kc,IvParameterSpec iv ) {
+
+    /**
+     * Cipher decrypt data AES 128
+     *
+     * @param input data to decrypt
+     * @param kc    SecretKey
+     * @param iv    Init vector
+     * @return data decrypted
+     */
+    public static final byte[] cipherDecryptAES(final byte[] input, byte[] kc, IvParameterSpec iv) {
         byte[] cipherText = null;
         try {
 
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKey aesKey = new SecretKeySpec(kc, "AES");
-            cipher.init(Cipher.DECRYPT_MODE,aesKey,iv);
+            cipher.init(Cipher.DECRYPT_MODE, aesKey, iv);
             //Encrypt
             cipherText = cipher.doFinal(input);
             return cipherText;
 
-        }catch(Exception e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }

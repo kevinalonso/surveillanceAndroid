@@ -43,6 +43,9 @@ public class Surveillance extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /**
+         * Set View
+         */
         setContentView(R.layout.activity_surveillance);
 
 
@@ -64,7 +67,7 @@ public class Surveillance extends Activity {
         User user = (User) getIntent().getSerializableExtra(User.SERIAL);
         if (user != null) {
             /**
-             * Encrypt json : (login + password +token)
+             * Encrypt json (login + password +token)
              */
 
             byte[] secretKey = SecretKey.GenerateKc();
@@ -85,7 +88,7 @@ public class Surveillance extends Activity {
 
 
             /**
-             * Get server directory files (Json encrypted)
+             *  Send json encrypted + Get server directory files (Json encrypted)
              */
 
             try {
@@ -146,6 +149,10 @@ public class Surveillance extends Activity {
 
                 for (int i = 0; i < file.length; i++) {
                     filefound = false;
+
+                    /**
+                     * Read file
+                     */
                     String fileName = file[i].getName();
                     String fileLastModifier = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss").format(
                             new Date(file[i].lastModified()));
@@ -158,6 +165,10 @@ public class Surveillance extends Activity {
                     fichier.setPath(pathfile);
 
                     for (Fichier fich : fichiers) {
+
+                        /**
+                         * If file must be send to server
+                         */
                         if (fich.getName().equals(fichier.getName()) && fich.getLastDateModifier() != fichier.getLastDateModifier()) {
                             //encrypt file
 
@@ -205,6 +216,9 @@ public class Surveillance extends Activity {
                         }
 
 
+                        /**
+                         * If file not found on server, send it
+                         */
                         if (filefound = false) {
                             //encrypt file
                             /**

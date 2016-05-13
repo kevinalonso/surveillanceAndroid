@@ -17,15 +17,23 @@ import javax.crypto.spec.IvParameterSpec;
 public class Descrypt {
 
 
-    public static String decryptMessage(String input, String secretKey,IvParameterSpec iv) {
+    /**
+     * Decrypt message
+     *
+     * @param input     message to decrypt
+     * @param secretKey secret key
+     * @param iv        init vector
+     * @return message decrypted
+     */
+    public static String decryptMessage(String input, String secretKey, IvParameterSpec iv) {
 
         try {
 
-            byte[] kc = Base64.decode(secretKey,Base64.DEFAULT);
+            byte[] kc = Base64.decode(secretKey, Base64.DEFAULT);
             final byte[] message = Base64.decode(input, Base64.DEFAULT);
-            final byte[] cipherText = CipherData.cipherDecryptAES(message, kc,iv);
+            final byte[] cipherText = CipherData.cipherDecryptAES(message, kc, iv);
 
-            return new String(cipherText,"UTF-8");
+            return new String(cipherText, "UTF-8");
 
         } catch (Exception e) {
 
@@ -34,27 +42,34 @@ public class Descrypt {
         return null;
     }
 
+    /**
+     * Decrypt file
+     *
+     * @param fichier file to decrypt
+     * @return file decrypted path
+     * @throws IOException
+     */
     public static String decryptFile(File fichier) throws IOException {
 
         byte[] bytes = FileUtils.readFileToByteArray(fichier);
 
         byte[] iv = new byte[16];
-        for(int i=0;i<16;i++) {
+        for (int i = 0; i < 16; i++) {
             iv[i] = bytes[i];
         }
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
 
         byte[] secretKey = new byte[256];
-        int j =0;
-        for(int i= iv.length;i< iv.length + secretKey.length;i++) {
+        int j = 0;
+        for (int i = iv.length; i < iv.length + secretKey.length; i++) {
             secretKey[j] = bytes[i];
             j++;
         }
 
         byte[] file = new byte[bytes.length - (iv.length + secretKey.length)];
         j = 0;
-        for(int i = iv.length + secretKey.length;i<bytes.length;i++) {
+        for (int i = iv.length + secretKey.length; i < bytes.length; i++) {
             file[j] = bytes[i];
             j++;
         }
@@ -62,7 +77,6 @@ public class Descrypt {
         String skDecrypted = SecretKey.decryptKc(Base64.encodeToString(secretKey, Base64.NO_PADDING));
         byte[] skdecryptedbyte = Base64.decode(skDecrypted, Base64.NO_PADDING);
         byte[] filedecrypted = CipherData.cipherDecryptAES(file, Base64.decode(skDecrypted, Base64.NO_PADDING), ivParameterSpec);
-
 
 
         FileOutputStream fEncrypted;

@@ -12,6 +12,12 @@ import java.security.spec.PKCS8EncodedKeySpec;
  */
 public class PrivateKeyReader {
 
+    /**
+     * Read private key
+     * @param filename private key
+     * @return private key
+     * @throws Exception
+     */
     public static PrivateKey get(String filename) throws Exception
     {
         File f = new File(filename);

@@ -11,6 +11,11 @@ import javax.crypto.spec.IvParameterSpec;
  */
 public class Iv {
 
+    /**
+     * Generate an init vector
+     *
+     * @return iv generate
+     */
     public static IvParameterSpec GenerateIv() {
         SecureRandom random = new SecureRandom();
         byte[] iv = new byte[16];
@@ -20,6 +25,12 @@ public class Iv {
         return ivParameterSpec;
     }
 
+    /**
+     * Extract iv from message
+     *
+     * @param message message
+     * @return iv extract
+     */
     public static IvParameterSpec extractIv(String message) {
 
         final byte[] messageBytes = Base64.decode(message, Base64.NO_PADDING);
@@ -32,8 +43,6 @@ public class Iv {
 
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
-
-        // return ivParameterSpec
         return ivParameterSpec;
 
     }
