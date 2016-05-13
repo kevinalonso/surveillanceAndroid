@@ -24,22 +24,22 @@ import iia.com.surveillanceproject.com.Entity.Fichier;
  */
 public class FileWSAdapter {
 
-    private static final String URL = "http://ip/adresse";
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static final String URL = "https://192.168.100.152/surveillancev3/checkfile.php";
+    private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
 
-    public static void post(String filePath,AsyncHttpResponseHandler responseHandler)
+    public static void post(String filePath, AsyncHttpResponseHandler responseHandler)
             throws JSONException, UnsupportedEncodingException, FileNotFoundException {
 
         File file = new File(filePath);
         InputStream myInputStream = new FileInputStream(file);
         RequestParams params = new RequestParams();
-        params.put("file", myInputStream,file.getName());
+        params.put("file", myInputStream, file.getName());
         client.post(URL, params, responseHandler);
     }
 
 
-    public static void postToken(Context context,String json ,AsyncHttpResponseHandler responseHandler)
+    public static void postToken(Context context, String json, AsyncHttpResponseHandler responseHandler)
             throws JSONException, UnsupportedEncodingException {
 
         StringEntity entity = new StringEntity(json);
